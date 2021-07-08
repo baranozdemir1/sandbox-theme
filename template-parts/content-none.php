@@ -9,43 +9,9 @@
 
 ?>
 
-<section class="no-results not-found">
-	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'sandbox' ); ?></h1>
-	</header><!-- .page-header -->
+<div class="alert alert-warning alert-icon alert-dismissible fade show" role="alert">
+    <i class="uil uil-exclamation-triangle"></i>
+    <?php esc_html_e( 'Nothing Found', 'sandbox' ); ?> <a href="<?php home_url( '/' ) ?>" class="alert-link hover">Go to Home Page</a>.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php _e( 'Close', 'sandbox' ); ?>"></button>
+</div>
 
-	<div class="page-content">
-		<?php
-		if ( is_home() && current_user_can( 'publish_posts' ) ) :
-
-			printf(
-				'<p>' . wp_kses(
-					/* translators: 1: link to WP admin new post page. */
-					__( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'sandbox' ),
-					array(
-						'a' => array(
-							'href' => array(),
-						),
-					)
-				) . '</p>',
-				esc_url( admin_url( 'post-new.php' ) )
-			);
-
-		elseif ( is_search() ) :
-			?>
-
-			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'sandbox' ); ?></p>
-			<?php
-			get_search_form();
-
-		else :
-			?>
-
-			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'sandbox' ); ?></p>
-			<?php
-			get_search_form();
-
-		endif;
-		?>
-	</div><!-- .page-content -->
-</section><!-- .no-results -->
