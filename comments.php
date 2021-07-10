@@ -20,58 +20,59 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments">
 
-	<?php
-	// You can start editing here -- including this comment!
-	if ( have_comments() ) :
-		?>
-		<h2 class="comments-title">
-			<?php
-			$sandbox_comment_count = get_comments_number();
-			if ( '1' === $sandbox_comment_count ) {
-				printf(
-					/* translators: 1: title. */
-					esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'sandbox' ),
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			} else {
-				printf( 
-					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $sandbox_comment_count, 'comments title', 'sandbox' ) ),
-					number_format_i18n( $sandbox_comment_count ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			}
-			?>
-		</h2><!-- .comments-title -->
+    <?php
+    // You can start editing here -- including this comment!
+    if ( have_comments() ) :
+        ?>
+        <h3 class="mb-6">
+            <?php
+            $sandbox_comment_count = get_comments_number();
+            if ( '1' === $sandbox_comment_count ) {
+                printf(
+                /* translators: 1: title. */
+                    esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'sandbox' ),
+                    wp_kses_post( get_the_title() )
+                );
+            } else {
+                printf(
+                /* translators: 1: comment count number, 2: title. */
+                    esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $sandbox_comment_count, 'comments title', 'sandbox' ) ),
+                    number_format_i18n( $sandbox_comment_count ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    wp_kses_post( get_the_title() )
+                );
+            }
+            ?>
+        </h3><!-- .comments-title -->
 
-		<?php the_comments_navigation(); ?>
+        <?php the_comments_navigation(); ?>
 
-		<ol class="comment-list">
-			<?php
-			wp_list_comments(
-				array(
-					'style'      => 'ol',
-					'short_ping' => true,
-				)
-			);
-			?>
-		</ol><!-- .comment-list -->
+        <ol id="singlecomments" class="commentlist">
+            <?php
+            wp_list_comments(
+                array(
+                    'style'      => 'ul',
+                    'short_ping' => true,
+                    'callback'   => 'baran_comment'
+                )
+            );
+            ?>
+        </ol><!-- .comment-list -->
 
-		<?php
-		the_comments_navigation();
+        <?php
+        the_comments_navigation();
 
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() ) :
-			?>
-			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'sandbox' ); ?></p>
-			<?php
-		endif;
+        // If comments are closed and there are comments, let's leave a little note, shall we?
+        if ( ! comments_open() ) :
+            ?>
+            <p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'sandbox' ); ?></p>
+        <?php
+        endif;
 
-	endif; // Check for have_comments().
+    endif; // Check for have_comments().
 
-	comment_form();
-	?>
-
-</div><!-- #comments -->
+    ?>
+</div>
+<hr />
+<?php baran_comment_form() ?>

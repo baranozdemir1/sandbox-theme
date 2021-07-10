@@ -53,7 +53,6 @@ function sandbox_tax_cat_active( $output, $args ) {
 }
 add_filter( 'wp_list_categories', 'sandbox_tax_cat_active', 10, 2 );
 
-
 function sandbox_custom_pagination($pages = '', $range = 2)
 {
     $showitems = ($range * 2)+1;
@@ -90,7 +89,6 @@ function sandbox_custom_pagination($pages = '', $range = 2)
         echo "</ul>\n";
     }
 }
-
 
 // the ajax function
 add_action('wp_ajax_data_fetch' , 'sandbox_data_fetch');
@@ -150,3 +148,44 @@ function sandbox_ajax_fetch() {
     </script>
     <?php
 }
+
+/*-----------------------------------------------------------*/
+/*   Add User Social Links (functions.php)
+/*-----------------------------------------------------------*/
+function sandbox_add_user_social_links( $user_contact ) {
+
+    /* Add user contact methods */
+    $user_contact['twitter']   = __('Twitter Link', 'sandbox');
+    $user_contact['facebook']  = __('Facebook Link', 'sandbox');
+    $user_contact['linkedin']  = __('LinkedIn Link', 'sandbox');
+    $user_contact['github']    = __('Github Link', 'sandbox');
+    $user_contact['instagram'] = __('Instagram Link', 'sandbox');
+    $user_contact['youtube']   = __('YouTube Link', 'sandbox');
+    $user_contact['behance']   = __('Behance Link', 'sandbox');
+
+    return $user_contact;
+}
+add_filter('user_contactmethods', 'sandbox_add_user_social_links');
+
+function sandbox_move_comment_field_to_bottom( $fields ) {
+    $comment_field = $fields['comment'];
+    unset( $fields['comment'] );
+    unset( $fields['cookies'] );
+    $fields['comment'] = $comment_field;
+    return $fields;
+}
+add_filter( 'comment_form_fields', 'sandbox_move_comment_field_to_bottom' );
+
+function sandbox_comment_reply_link($content) {
+    $extra_classes = 'btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"';
+    return preg_replace( '/comment-reply-link/', 'comment-reply-link ' . $extra_classes, $content);
+}
+
+add_filter('comment_reply_link', 'sandbox_comment_reply_link', 99);
+
+function sandbox_get_comment_author_link( $content ) {
+    $extra_classes = 'link-dark';
+    return preg_replace( '/url/', 'url ' . $extra_classes, $content );
+}
+
+add_filter( 'get_comment_author_link', 'sandbox_get_comment_author_link', 99 );

@@ -21,7 +21,7 @@
             <div class="post-header">
                 <?php
                 $get_the_category = get_the_category();
-                if (has_category('category', get_the_ID())):
+                if ( !empty( $get_the_category ) ):
                     ?>
                     <div class="post-category text-line">
                         <a href="<?php echo get_category_link($get_the_category[0]->term_id) ?>" class="hover" rel="category">

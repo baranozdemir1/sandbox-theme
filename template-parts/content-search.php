@@ -30,6 +30,6 @@
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">
-		<?php sandbox_entry_footer(); ?>
+		<?php echo 'footer' ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

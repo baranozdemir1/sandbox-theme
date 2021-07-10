@@ -28,10 +28,10 @@
         <nav class="navbar fancy navbar-expand-lg navbar-light caret-none navbar-bg-light">
             <div class="container">
                 <div class="navbar-collapse-wrapper bg-white d-flex flex-row flex-nowrap w-100 justify-content-between align-items-center">
-                    <div class="navbar-brand w-100"><a href="index-2.html"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-purple.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-purple@2x.png 2x" alt="" /></a></div>
+                    <div class="navbar-brand w-100"><a href="<?php echo home_url( '/' ) ?>"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-purple.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-purple@2x.png 2x" alt="" /></a></div>
                     <div class="navbar-collapse offcanvas-nav d-lg-flex mx-lg-auto">
                         <div class="offcanvas-header d-lg-none d-xl-none">
-                            <a href="index-2.html"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-light.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-light@2x.png 2x" alt="" /></a>
+                            <a href="<?php echo home_url( '/' ) ?>"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-light.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-light@2x.png 2x" alt="" /></a>
                             <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                         </div>
                         <?php
@@ -65,7 +65,7 @@
                                 <!-- /.social -->
                             </li>
                             <li class="nav-item d-none d-md-block">
-                                <a href="contact.html" class="btn btn-sm btn-primary rounded-pill">CV</a>
+                                <a href="cv.html" class="btn btn-sm btn-primary rounded-pill">CV</a>
                             </li>
                             <li class="nav-item d-lg-none">
                                 <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div>
