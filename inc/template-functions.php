@@ -180,12 +180,68 @@ function sandbox_comment_reply_link($content) {
     $extra_classes = 'btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"';
     return preg_replace( '/comment-reply-link/', 'comment-reply-link ' . $extra_classes, $content);
 }
-
-add_filter('comment_reply_link', 'sandbox_comment_reply_link', 99);
+add_filter( 'comment_reply_link', 'sandbox_comment_reply_link', 99 );
 
 function sandbox_get_comment_author_link( $content ) {
     $extra_classes = 'link-dark';
     return preg_replace( '/url/', 'url ' . $extra_classes, $content );
 }
-
 add_filter( 'get_comment_author_link', 'sandbox_get_comment_author_link', 99 );
+
+function sandbox_add_blog_posts_classes($content)
+{
+    if ( empty( $content ) ) {
+        $content = ' ';
+    }
+
+    $doc = new DOMDocument(); //Instantiate DOMDocument
+    libxml_use_internal_errors(true);
+    $doc->loadHTML($content); //Load the Post/Page Content as HTML
+    libxml_clear_errors();
+    $blockquotes = $doc->getElementsByTagName( 'blockquote' );
+
+    $tagH = 'h';
+
+    for ( $say = 1; $say <= 6; $say++ ) {
+        $tagHs = $tagH . $say;
+
+        $h1s = $doc->getElementsByTagName( $tagHs );
+
+        foreach ( $h1s as $h1 ) {
+            sandbox_append_attr_to_element($h1, 'class', $tagHs . ' mb-4');
+        }
+    }
+
+    foreach ($blockquotes as $blockquote ) {
+        sandbox_append_attr_to_element($blockquote, 'class', 'fs-lg my-8');
+    }
+
+    if ( $doc->getElementsByTagName( 'blockquote' ) ) {
+        $cites = $doc->getElementsByTagName( 'cite' );
+
+        foreach ( $cites as $cite ){
+            sandbox_append_attr_to_element($cite, 'class', 'set-footer blockquote-footer');
+        }
+    }
+
+    return $doc->saveHTML(); //Return modified content as string
+}
+add_filter( 'the_content', 'sandbox_add_blog_posts_classes', 20 );
+
+/**
+ * @param $element
+ * @param $attr
+ * @param $value
+ */
+function sandbox_append_attr_to_element(&$element, $attr, $value)
+{
+    if($element->hasAttribute($attr)) {
+        $attrs = explode(' ', $element->getAttribute($attr)); //Explode existing values
+        if(!in_array($value, $attrs))
+            $attrs[] = $value; //Append the new value
+        $attrs = array_map('trim', array_filter($attrs)); //Clean existing values
+        $element->setAttribute($attr, implode(' ', $attrs)); //Set cleaned attribute
+    } else {
+        $element->setAttribute($attr, $value); //Set attribute
+    }
+}

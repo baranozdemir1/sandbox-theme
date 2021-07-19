@@ -146,84 +146,87 @@ if ( ! function_exists( 'sandbox_get_user_social_links' ) ):
     }
 endif;
 
-function baran_comment_form() {
-    //Declare Vars
-    $comment_author = __( 'Name *', 'sandbox' );
-    $comment_email = __( 'Email *', 'sandbox' );
-    $comment_body = __( 'Comment', 'sandbox' );
+if ( ! function_exists( 'sandbox_comment_form' ) ) {
+    function sandbox_comment_form() {
+        //Declare Vars
+        $comment_author = __( 'Name *', 'sandbox' );
+        $comment_email = __( 'Email *', 'sandbox' );
+        $comment_body = __( 'Comment', 'sandbox' );
 
-    $comments_args = array(
-        //Define Fields
-        'fields' => array(
-            //Author field
-            'author' => '<div class="form-label-group mb-4"><input type="text" class="form-control" id="author" name="author" aria-required="true" placeholder="' . $comment_author .'"><label for="author">'. $comment_author .'</label></div>',
-            //Email Field
-            'email' => '<div class="form-label-group mb-4"><input class="form-control" id="email" name="email" placeholder="' . $comment_email .'"><label for="email">'. $comment_email .'</label></div>',
-        ),
-        // Redefine your own textarea (the comment body).
-        'comment_field'         => '<div class="form-label-group mb-4"><textarea class="form-control" rows="5" id="comment" name="comment" aria-required="true" placeholder="' . $comment_body .'"></textarea><label>'. $comment_body .'</label></div>',
-        //Submit Button ID
-        'class_form'            => 'comment-form',
-        'title_reply'           => __( 'Would you like to share your thoughts?', 'sandbox' ),
-        'submit_button'         => '<button type="submit" class="btn btn-primary rounded-pill mb-0">Submit</button>',
-        'title_reply_to'       => __( 'Leave a Reply to %s', 'sandbox' ),
-        'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
-        'title_reply_after'    => '</h3>',
-        'cancel_reply_before'  => ' <span class="baran-cancel-reply">',
-        'cancel_reply_after'   => '</span>',
-        'cancel_reply_link'    => sprintf('<i class="fas fa-times"></i> %s', __( 'Cancel reply', 'sandbox' )),
-    );
+        $comments_args = array(
+            //Define Fields
+            'fields' => array(
+                //Author field
+                'author' => '<div class="form-label-group mb-4"><input type="text" class="form-control" id="author" name="author" aria-required="true" placeholder="' . $comment_author .'"><label for="author">'. $comment_author .'</label></div>',
+                //Email Field
+                'email' => '<div class="form-label-group mb-4"><input class="form-control" id="email" name="email" placeholder="' . $comment_email .'"><label for="email">'. $comment_email .'</label></div>',
+            ),
+            // Redefine your own textarea (the comment body).
+            'comment_field'         => '<div class="form-label-group mb-4"><textarea class="form-control" rows="5" id="comment" name="comment" aria-required="true" placeholder="' . $comment_body .'"></textarea><label>'. $comment_body .'</label></div>',
+            //Submit Button ID
+            'class_form'            => 'comment-form',
+            'title_reply'           => __( 'Would you like to share your thoughts?', 'sandbox' ),
+            'submit_button'         => '<button type="submit" class="btn btn-primary rounded-pill mb-0">Submit</button>',
+            'title_reply_to'       => __( 'Leave a Reply to %s', 'sandbox' ),
+            'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
+            'title_reply_after'    => '</h3>',
+            'cancel_reply_before'  => ' <span class="baran-cancel-reply">',
+            'cancel_reply_after'   => '</span>',
+            'cancel_reply_link'    => sprintf('<i class="fas fa-times"></i> %s', __( 'Cancel reply', 'sandbox' )),
+        );
 
-    comment_form( $comments_args );
+        comment_form( $comments_args );
+    }
 }
 
-function baran_comment($comment, $args, $depth) {
-    if ( 'div' === $args['style'] ) {
-        $tag       = 'div';
-        $add_below = 'comment';
-    } else {
-        $tag       = 'li';
-        $add_below = 'div-comment';
-    }?>
+if ( ! function_exists( 'sandbox_comment' ) ) {
+    function sandbox_comment($comment, $args, $depth) {
+        if ( 'div' === $args['style'] ) {
+            $tag       = 'div';
+            $add_below = 'comment';
+        } else {
+            $tag       = 'li';
+            $add_below = 'div-comment';
+        }?>
 
-    <<?php echo $tag; ?> <?php comment_class( empty( $args['has_children'] ) ? 'comment ' : 'ozdemir' ); ?> id="comment-<?php comment_ID() ?>"><?php
-    if ( 'div' != $args['style'] ) { ?>
-        <div id="div-comment-<?php comment_ID() ?>" class="comment-header d-md-flex align-items-center"><?php
-    } ?>
+        <<?php echo $tag; ?> <?php comment_class( empty( $args['has_children'] ) ? 'comment ' : 'ozdemir' ); ?> id="comment-<?php comment_ID() ?>"><?php
+        if ( 'div' != $args['style'] ) { ?>
+            <div id="div-comment-<?php comment_ID() ?>" class="comment-header d-md-flex align-items-center"><?php
+        } ?>
 
-            <div class="d-flex align-items-center">
-                <figure class="user-avatar"><?php
-                    if ( $args['avatar_size'] != 0 ) {
-                        echo get_avatar( $comment, $args['avatar_size'], '', '', array( 'class' => 'rounded-circle' ));
-                    }
-                    ?>
-                </figure>
-                <div>
-                    <h6 class="comment-author">
-                        <?php echo get_comment_author_link() ?>
-                    </h6>
-                    <ul class="post-meta">
-                        <li><i class="uil uil-calendar-alt"></i><?php echo get_comment_date() ?></li>
-                    </ul>
-                    <!-- /.post-meta -->
-                </div>
-                <!-- /div -->
-            </div>
-            <div class="mt-3 mt-md-0 ms-auto">
-                <?php
-                comment_reply_link(
-                    array_merge(
-                        $args,
-                        array(
-                            'add_below' => $add_below,
-                            'depth'     => $depth,
-                            'max_depth' => $args['max_depth'],
-                            'reply_text'=> '<i class="uil uil-comments"></i> Reply'
-                        )
-                    )
-                );
+        <div class="d-flex align-items-center">
+            <figure class="user-avatar"><?php
+                if ( $args['avatar_size'] != 0 ) {
+                    echo get_avatar( $comment, $args['avatar_size'], '', '', array( 'class' => 'rounded-circle' ));
+                }
                 ?>
+            </figure>
+            <div>
+                <h6 class="comment-author">
+                    <?php echo get_comment_author_link() ?>
+                </h6>
+                <ul class="post-meta">
+                    <li><i class="uil uil-calendar-alt"></i><?php echo get_comment_date() ?></li>
+                </ul>
+                <!-- /.post-meta -->
             </div>
+            <!-- /div -->
+        </div>
+        <div class="mt-3 mt-md-0 ms-auto">
+            <?php
+            comment_reply_link(
+                array_merge(
+                    $args,
+                    array(
+                        'add_below' => $add_below,
+                        'depth'     => $depth,
+                        'max_depth' => $args['max_depth'],
+                        'reply_text'=> '<i class="uil uil-comments"></i> Reply'
+                    )
+                )
+            );
+            ?>
+        </div>
 
         </div>
         <?php
@@ -233,7 +236,8 @@ function baran_comment($comment, $args, $depth) {
         }
         ?>
 
-    <?php
+        <?php
+    }
 }
 
 

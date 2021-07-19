@@ -332,7 +332,7 @@ class Sandbox_Archives_Widget extends WP_Widget {
         );
     }
 
-    private $widget_fields = array();
+    private array $widget_fields = array();
 
     public function widget( $args, $instance ) {
         echo $args['before_widget'];

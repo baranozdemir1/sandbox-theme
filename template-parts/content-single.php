@@ -70,38 +70,6 @@
                                 <article class="post">
                                     <div class="post-content mb-5">
                                         <?php the_content(); ?>
-
-                                        <!--
-                                        <h2 class="h1 mb-4">Cras mattis consectetur purus fermentum</h2>
-                                        <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur. Curabitur blandit tempus porttitor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget porta ac consectetur vestibulum.</p>
-                                        <p>Donec sed odio dui consectetur adipiscing elit. Etiam adipiscing tincidunt elit, eu convallis felis suscipit ut. Phasellus rhoncus tincidunt auctor. Nullam eu sagittis mauris. Donec non dolor ac elit aliquam tincidunt at at sapien. Aenean tortor libero, condimentum ac laoreet vitae, varius tempor nisi. Duis non arcu vel lectus urna mollis ornare vel eu leo.</p>
-                                        <div class="row g-6 mt-3 mb-10 light-gallery-wrapper">
-                                            <div class="col-md-6">
-                                                <figure class="hover-scale rounded"><a href="<?php echo get_template_directory_uri() ?>/assets/img/photos/b8-full.jpg" class="lightbox" data-sub-html=".caption"> <img src="<?php echo get_template_directory_uri() ?>/assets/img/photos/b8.jpg" alt="" /></a></figure>
-                                                <div class="caption d-none">
-                                                    <h5>Heading</h5>
-                                                    <p>Purus Vulputate Sem Tellus Quam</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <figure class="hover-scale rounded"><a href="<?php echo get_template_directory_uri() ?>/assets/img/photos/b9-full.jpg" class="lightbox"> <img src="<?php echo get_template_directory_uri() ?>/assets/img/photos/b9.jpg" alt="" /></a></figure>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <figure class="hover-scale rounded"><a href="<?php echo get_template_directory_uri() ?>/assets/img/photos/b10-full.jpg" class="lightbox"> <img src="<?php echo get_template_directory_uri() ?>/assets/img/photos/b10.jpg" alt="" /></a></figure>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <figure class="hover-scale rounded"><a href="<?php echo get_template_directory_uri() ?>/assets/img/photos/b11-full.jpg" class="lightbox"> <img src="<?php echo get_template_directory_uri() ?>/assets/img/photos/b11.jpg" alt="" /></a></figure>
-                                            </div>
-                                        </div>
-                                        <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Maecenas faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis ornare vel eu leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna.</p>
-                                        <blockquote class="fs-lg my-8">
-                                            <p>Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis, est non commodo luctus, nisi erat porttitor ligula lacinia odio sem nec elit purus.</p>
-                                            <footer class="blockquote-footer">Very important person</footer>
-                                        </blockquote>
-                                        <h3 class="h2 mb-4">Sit Vulputate Bibendum Purus</h3>
-                                        <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vestibulum id ligula porta felis euismod semper.</p>
-                                        <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-                                        -->
                                     </div>
                                     <!-- /.post-content -->
                                     <div class="post-footer d-md-flex flex-md-row justify-content-md-between align-items-center mt-8">
@@ -193,7 +161,6 @@
                                 <?php endforeach; endif; wp_reset_postdata(); ?>
                             </div>
                             <!-- /.owl-carousel -->
-                            <hr />
                             <?php
 
                             // If comments are open or we have at least one comment, load up the comment template.

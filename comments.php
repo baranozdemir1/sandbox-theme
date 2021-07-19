@@ -20,6 +20,12 @@ if ( post_password_required() ) {
 }
 ?>
 
+<?php
+if ( have_comments() ){
+    echo '<hr>';
+}
+?>
+
 <div id="comments">
 
     <?php
@@ -54,7 +60,7 @@ if ( post_password_required() ) {
                 array(
                     'style'      => 'ul',
                     'short_ping' => true,
-                    'callback'   => 'baran_comment'
+                    'callback'   => 'sandbox_comment'
                 )
             );
             ?>
@@ -75,4 +81,4 @@ if ( post_password_required() ) {
     ?>
 </div>
 <hr />
-<?php baran_comment_form() ?>
+<?php sandbox_comment_form() ?>
