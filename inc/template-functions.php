@@ -245,3 +245,4 @@ function sandbox_append_attr_to_element(&$element, $attr, $value)
         $element->setAttribute($attr, $value); //Set attribute
     }
 }
+

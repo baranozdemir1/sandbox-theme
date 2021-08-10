@@ -196,9 +196,18 @@ require 'inc/post-like.php';
 require 'inc/widgets.php';
 
 /**
+ * Custom Post Types.
+ */
+require 'inc/custom-post-types.php';
+
+/**
+ * Redux Framework.
+ */
+require 'inc/acf-install.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require 'inc/jetpack.php';
 }
-
