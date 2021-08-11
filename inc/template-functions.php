@@ -246,3 +246,12 @@ function sandbox_append_attr_to_element(&$element, $attr, $value)
     }
 }
 
+function sandbox_next_post_link( $html ){
+    return str_replace( '<a ', '<a class="btn btn-soft-ash rounded-pill btn-icon btn-icon-end mb-2 mt-2" ', $html );
+}
+
+function sandbox_previous_post_link( $html ){
+    return str_replace( '<a ', '<a class="btn btn-soft-ash rounded-pill btn-icon btn-icon-start mb-2 mt-2 me-1" ', $html );
+}
+add_filter( 'next_post_link', 'sandbox_next_post_link' );
+add_filter( 'previous_post_link', 'sandbox_previous_post_link' );

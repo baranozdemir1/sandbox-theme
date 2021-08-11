@@ -10,7 +10,7 @@
 ?>
 
 <section class="wrapper bg-soft-primary">
-    <div class="container pt-10 pb-19 pt-md-14 pb-md-22 text-center">
+    <div class="container pt-10 pb-21 pt-md-14 pb-md-22 text-center">
         <div class="row">
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                 <div class="post-header">
@@ -51,14 +51,15 @@
                     </figure>
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1">
-                            <h2 class="display-6 mb-4">About the Project</h2>
-                            <div class="row gx-0">
-                                <div class="col-md-9 text-justify">
-                                    <?php the_content(); ?>
+                            <div class="row mb-6">
+                                <div class="col-md-12 d-flex align-items-center justify-content-center justify-content-xs-between flex-wrap">
+                                    <h2 class="fs-20">About the Project</h2>
+                                    <a target="_blank" href="<?php echo esc_url( get_field( 'project_website_link_key' ) ) ?>" class="more fs-sm btn btn-primary rounded-pill btn-icon btn-icon-start mb-0 me-0">See The Project</a>
                                 </div>
-                                <!--/column -->
-                                <div class="col-md-2 ms-auto">
-                                    <ul class="list-unstyled">
+                            </div>
+                            <div class="row gx-0">
+                                <div class="col-md-12 ms-auto">
+                                    <div class="row d-flex align-items-center justify-content-center">
                                         <?php
 
                                         $list_values = array(
@@ -71,30 +72,48 @@
                                         foreach ( $list_values as $list_value) {
                                             $get_fields = get_field_object( $list_value );
                                             ?>
-                                            <li>
-                                                <h5 class="mb-1"><?php echo $get_fields['label']; ?></h5>
+                                            <div class="col-md-3">
+                                                <h5 class="text-center mb-1"><?php echo $get_fields['label']; ?></h5>
                                                 <?php if (gettype( get_field( $list_value ) ) === 'string'): ?>
-                                                    <p><?php the_field( $list_value ); ?></p>
+                                                    <p class="text-center fs-15"><?php the_field( $list_value ); ?></p>
                                                 <?php else:
-                                                    $array_keys = get_field($list_value);
-                                                    foreach ( $array_keys as $item) {
-                                                        ?>
-                                                        <p>Label: <?php echo $item['label']; ?></p>
-                                                        <p>Value: <?php echo $item['value']; ?></p>
+                                                    ?>
+                                                    <div class="d-flex align-items-center justify-content-evenly mx-3">
                                                         <?php
-                                                    }
-                                                    endif; ?>
-                                            </li>
+                                                        $array_keys = get_field($list_value);
+                                                        foreach ( $array_keys as $item) {
+                                                            ?>
+                                                            <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $item['value'] . '-logo.svg' ?>" title="<?php echo $item['label'] ?>" alt="<?php echo $item['label'] ?> Logo" class="px-1 img-fluid w-8 mb-4">
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                <?php
+                                                endif; ?>
+                                            </div>
                                             <?php
 
                                         }
                                         ?>
-                                    </ul>
-                                    <a target="_blank" href="<?php echo esc_url( get_field( 'project_website_link_key' ) ) ?>" class="more hover">See The Project</a>
+                                    </div>
                                 </div>
                                 <!--/column -->
                             </div>
                             <!--/.row -->
+                            <?php
+                            if ( get_the_content() !== '' ){
+                                ?>
+                                <div class="row gx-0">
+                                    <div class="col-md-12 text-justify">
+                                        <?php the_content(); ?>
+                                    </div>
+                                    <!--/column -->
+                                </div>
+                                <!--/.row -->
+
+                                <?php
+                            }
+                            ?>
                         </div>
                         <!-- /column -->
                     </div>
@@ -136,13 +155,13 @@
     <div class="container pb-14 pt-5 pb-md-16 pt-md-5">
         <div class="row gx-lg-8 gx-xl-12">
             <div class="col-md-8 align-self-center text-center text-md-start navigation">
-                <a href="#" class="btn btn-soft-ash rounded-pill btn-icon btn-icon-start mb-0 me-1"><i class="uil uil-arrow-left"></i> Prev Post</a>
-                <a href="#" class="btn btn-soft-ash rounded-pill btn-icon btn-icon-end mb-0">Next Post <i class="uil uil-arrow-right"></i></a>
+                <?php previous_post_link('%link', __( '<i class="uil uil-arrow-left"></i> Prev Project', 'sandbox' )); ?>
+                <?php next_post_link('%link', __( 'Next Project <i class="uil uil-arrow-right"></i>', 'sandbox' )); ?>
             </div>
             <!--/column -->
             <aside class="col-md-4 sidebar text-center text-md-end">
                 <div class="dropdown share-dropdown btn-group">
-                    <button class="btn btn-red rounded-pill btn-icon btn-icon-start dropdown-toggle mb-0 me-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-red rounded-pill btn-icon btn-icon-start dropdown-toggle mb-2 mt-2 me-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="uil uil-share-alt"></i> Share </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#"><i class="uil uil-twitter"></i>Twitter</a>
