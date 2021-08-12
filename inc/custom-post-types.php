@@ -48,7 +48,7 @@ function sandbox_create_project_cpt() {
         'can_export' => true,
         'has_archive' => true,
         'hierarchical' => true,
-        'exclude_from_search' => true,
+        'exclude_from_search' => false,
         'publicly_queryable' => true,
         'capability_type' => 'post',
     );

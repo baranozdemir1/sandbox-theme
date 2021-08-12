@@ -77,7 +77,7 @@
                                         <div class="mb-0 mb-md-2">
                                             <div class="dropdown share-dropdown btn-group">
                                                 <button class="btn btn-sm btn-red rounded-pill btn-icon btn-icon-start dropdown-toggle mb-0 me-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="uil uil-share-alt"></i> Share </button>
+                                                    <i class="uil uil-share-alt"></i> <?php _e( 'Share', 'sandbox' ); ?> </button>
                                                 <div class="dropdown-menu">
                                                     <a target="_blank" class="dropdown-item" href="https://twitter.com/share?url=<?php the_permalink() ?>&text=<?php the_title() ?>"><i class="uil uil-twitter"></i>Twitter</a>
                                                     <a target="_blank" class="dropdown-item" href="https://www.facebook.com/sharer.php?u=<?php the_permalink() ?>&t=<?php the_title() ?>"><i class="uil uil-facebook-f"></i>Facebook</a>

@@ -53,7 +53,7 @@
                         <div class="col-lg-10 offset-lg-1">
                             <div class="row mb-6">
                                 <div class="col-md-12 d-flex align-items-center justify-content-center justify-content-xs-between flex-wrap">
-                                    <h2 class="fs-20">About the Project</h2>
+                                    <h2 class="fs-20"><?php _e( 'About the Project', 'sandbox' ); ?></h2>
                                     <a target="_blank" href="<?php echo esc_url( get_field( 'project_website_link_key' ) ) ?>" class="more fs-sm btn btn-primary rounded-pill btn-icon btn-icon-start mb-0 me-0">See The Project</a>
                                 </div>
                             </div>
@@ -124,17 +124,19 @@
 
                         $values = get_field('project_gallery_key');
 
-                        foreach ( $values as $value ){
-                            ?>
+                        if ( $values ) {
+                            foreach ( $values as $value ){
+                                ?>
 
-                            <div class="item col-md-6">
-                                <figure class="rounded">
-                                    <?php
-                                    echo wp_get_attachment_image( $value['ID'], 'full', '', array( 'class' => 'classname' ) );
-                                    ?>
-                                </figure>
-                            </div>
-                            <?php
+                                <div class="item col-md-6">
+                                    <figure class="rounded">
+                                        <?php
+                                        echo wp_get_attachment_image( $value['ID'], 'full', '', array( 'class' => 'classname' ) );
+                                        ?>
+                                    </figure>
+                                </div>
+                                <?php
+                            }
                         }
 
                         ?>
@@ -162,11 +164,11 @@
             <aside class="col-md-4 sidebar text-center text-md-end">
                 <div class="dropdown share-dropdown btn-group">
                     <button class="btn btn-red rounded-pill btn-icon btn-icon-start dropdown-toggle mb-2 mt-2 me-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="uil uil-share-alt"></i> Share </button>
+                        <i class="uil uil-share-alt"></i> <?php _e( 'Share', 'sandbox' ); ?> </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="uil uil-twitter"></i>Twitter</a>
-                        <a class="dropdown-item" href="#"><i class="uil uil-facebook-f"></i>Facebook</a>
-                        <a class="dropdown-item" href="#"><i class="uil uil-linkedin"></i>Linkedin</a>
+                        <a target="_blank" class="dropdown-item" href="https://twitter.com/share?url=<?php the_permalink() ?>&text=<?php the_title() ?>"><i class="uil uil-twitter"></i>Twitter</a>
+                        <a target="_blank" class="dropdown-item" href="https://www.facebook.com/sharer.php?u=<?php the_permalink() ?>&t=<?php the_title() ?>"><i class="uil uil-facebook-f"></i>Facebook</a>
+                        <a target="_blank" class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink() ?>&title=<?php the_title() ?>&summary=<?php echo wp_trim_words(get_the_content(), 10, '...') ?>"><i class="uil uil-linkedin"></i>Linkedin</a>
                     </div>
                     <!--/.dropdown-menu -->
                 </div>

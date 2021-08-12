@@ -52,7 +52,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
          *
          * @param string           $output Used to append additional content (passed by reference).
          * @param int              $depth  Depth of menu item. Used for padding.
-         * @param WP_Nav_Menu_Args $args   An object of wp_nav_menu() arguments.
          */
         public function start_lvl( &$output, $depth = 0, $args = null ) {
             if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
@@ -104,9 +103,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
          * @see Walker_Nav_Menu::start_el()
          *
          * @param string           $output Used to append additional content (passed by reference).
-         * @param WP_Nav_Menu_Item $item   Menu item data object.
          * @param int              $depth  Depth of menu item. Used for padding.
-         * @param WP_Nav_Menu_Args $args   An object of wp_nav_menu() arguments.
          * @param int              $id     Current item ID.
          */
         public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
@@ -119,7 +116,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
             }
             $indent = ( $depth ) ? str_repeat( $t, $depth ) : '';
 
-            if ( false !== strpos( $args->items_wrap, 'itemscope' ) && false === $this->has_schema ) {
+            if ( str_contains($args->items_wrap, 'itemscope') && false === $this->has_schema ) {
                 $this->has_schema  = true;
                 $args->link_before = '<span itemprop="name">' . $args->link_before;
                 $args->link_after .= '</span>';
@@ -157,11 +154,8 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
              *
              * @since WP 4.4.0
              *
-             * @param WP_Nav_Menu_Args $args  An object of wp_nav_menu() arguments.
-             * @param WP_Nav_Menu_Item $item  Menu item data object.
              * @param int              $depth Depth of menu item. Used for padding.
              *
-             * @var WP_Nav_Menu_Args
              */
             $args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
 
@@ -191,8 +185,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
              * @since WP 4.1.0 The `$depth` parameter was added.
              *
              * @param string           $menu_id The ID that is applied to the menu item's `<li>` element.
-             * @param WP_Nav_Menu_Item $item    The current menu item.
-             * @param WP_Nav_Menu_Args $args    An object of wp_nav_menu() arguments.
              * @param int              $depth   Depth of menu item. Used for padding.
              */
             $id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
@@ -253,7 +245,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
             $linkmod_type = self::get_linkmod_type( $linkmod_classes );
 
             // START appending the internal item contents to the output.
-            $item_output = isset( $args->before ) ? $args->before : '';
+            $item_output = $args->before ?? '';
 
             /*
              * This is the start of the internal nav item. Depending on what
@@ -287,8 +279,6 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
              * @since WP 4.4.0
              *
              * @param string           $title The menu item's title.
-             * @param WP_Nav_Menu_Item $item  The current menu item.
-             * @param WP_Nav_Menu_Args $args  An object of wp_nav_menu() arguments.
              * @param int              $depth Depth of menu item. Used for padding.
              */
             $title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );

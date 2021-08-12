@@ -38,13 +38,28 @@ add_action( 'wp_head', 'sandbox_pingback_header' );
 
 function sandbox_tax_cat_active( $output, $args ) {
 
-    if(is_archive()){
+    if( is_category() ){
         global $post;
 
-        $terms = get_the_terms( $post->ID, 'category' );
-        foreach( $terms as $term ) {
-            if (preg_match('#aria-current="page"#', $output)) {
-                $output = str_replace('aria-current="page"', 'aria-current="page" class="active"', $output);
+        if ( $post ) {
+            $terms = get_the_terms( $post->ID, 'category' );
+            foreach( $terms as $term ) {
+                if (preg_match('#aria-current="page"#', $output)) {
+                    $output = str_replace('aria-current="page"', 'aria-current="page" class="active"', $output);
+                }
+            }
+        }
+    }
+
+    if( is_tax( 'project' ) ){
+        global $post;
+
+        if ( $post ) {
+            $terms = get_the_terms( $post->ID, 'project' );
+            foreach( $terms as $term ) {
+                if (preg_match('#aria-current="page"#', $output)) {
+                    $output = str_replace('aria-current="page"', 'aria-current="page" class="active"', $output);
+                }
             }
         }
     }
@@ -98,18 +113,32 @@ function sandbox_data_fetch(){
     $the_query = new WP_Query( array( 'posts_per_page' => 5, 's' => esc_attr( $_POST['keyword'] ), 'post_type' => 'post' ) );
     if( $the_query->have_posts() ) :
         ?>
-        <ul class="mt-5 icon-list bullet-primary">
-        <?php
-        while( $the_query->have_posts() ): $the_query->the_post(); ?>
+        <div class="searchContent mt-5">
+            <ul class="image-list">
+            <?php
+            while( $the_query->have_posts() ): $the_query->the_post(); ?>
+                <li>
+                    <figure class="rounded">
+                        <?php sandbox_post_thumbnail(); ?>
+                    </figure>
+                    <div class="post-content">
+                        <h6 class="mb-2"> <a class="link-dark" href="<?php the_permalink(); ?>"><?php the_title() ?></a> </h6>
+                        <ul class="post-meta">
+                            <li class="post-date"><?php sandbox_posted_on(); ?></li>
+                            <li class="post-comments">
+                                <a href="<?php echo get_comments_pagenum_link() ?>">
+                                    <i class="uil uil-comment"></i> <?php echo get_comments_number() ?>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.post-meta -->
+                    </div>
+                </li>
+            <?php endwhile;?>
+            </ul>
+        </div>
+        <!-- /.image-list -->
 
-            <li>
-                <span><i class="uil uil-arrow-right"></i></span><span>
-                  <a href="<?php echo esc_url(get_permalink()); ?>"><?php the_title();?></a>
-                </span>
-            </li>
-
-        <?php endwhile;?>
-        </ul>
         <?php
         wp_reset_postdata();
     else:
@@ -255,3 +284,84 @@ function sandbox_previous_post_link( $html ){
 }
 add_filter( 'next_post_link', 'sandbox_next_post_link' );
 add_filter( 'previous_post_link', 'sandbox_previous_post_link' );
+
+$option_posts_per_page = get_option( 'posts_per_page' );
+
+add_action( 'init', 'sandbox_project_cat_posts_per_page', 0);
+
+function sandbox_project_cat_posts_per_page() {
+    add_filter( 'option_posts_per_page', 'sandbox_option_project_cat_posts_per_page' );
+}
+
+function sandbox_option_project_cat_posts_per_page( $value ) {
+
+    global $option_posts_per_page;
+
+    return is_tax( 'project-category') ? 1 : $option_posts_per_page;
+}
+
+function sandbox_project_cat_paging_nav( $wp_query ) {
+
+    if( is_singular() )
+        return;
+
+    /** Stop execution if there's only 1 page */
+    if( $wp_query->max_num_pages <= 1 )
+        return;
+
+    $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+    $max   = intval( $wp_query->max_num_pages );
+
+    /** Add current page to the array */
+    if ( $paged >= 1 )
+        $links[] = $paged;
+
+    /** Add the pages around the current page to the array */
+    if ( $paged >= 3 ) {
+        $links[] = $paged - 1;
+        $links[] = $paged - 2;
+    }
+
+    if ( ( $paged + 2 ) <= $max ) {
+        $links[] = $paged + 2;
+        $links[] = $paged + 1;
+    }
+
+    echo '<ul class="pagination">' . "\n";
+
+    /** Previous Post Link */
+    if ( get_previous_posts_link() )
+        printf( '<li class="page-item"><a class="page-link" href="%s" aria-label="Previous"><span aria-hidden="true"><i class="uil uil-arrow-left"></i></span></a></li>' . "\n", get_previous_posts_page_link() );
+
+    /** Link to first page, plus ellipses if necessary */
+    if ( ! in_array( 1, $links ) ) {
+        $class = 1 == $paged ? ' active' : '';
+
+        printf( '<li class="page-item %s"><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+
+        if ( ! in_array( 2, $links ) )
+            echo '<li class="page-item disabled"><a class="page-link">...</a></li>';
+    }
+
+    /** Link to current page, plus 2 pages in either direction if necessary */
+    sort( $links );
+    foreach ( (array) $links as $link ) {
+        $class = $paged == $link ? ' active' : '';
+        printf( '<li class="page-item %s"><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+    }
+
+    /** Link to last page, plus ellipses if necessary */
+    if ( ! in_array( $max, $links ) ) {
+        if ( ! in_array( $max - 1, $links ) )
+            echo '<li class="page-item disabled"><a class="page-link">...</a></li>' . "\n";
+
+        $class = $paged == $max ? ' active' : '';
+        printf( '<li class="page-item %s"><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+    }
+
+    /** Next Post Link */
+    if ( get_next_posts_link() )
+        printf( '<li class="page-item"><a class="page-link" href="%s" aria-label="Next"><span aria-hidden="true"><i class="uil uil-arrow-right"></i></span></a></li>' . "\n", get_next_posts_page_link() );
+
+    echo '</ul>' . "\n";
+}

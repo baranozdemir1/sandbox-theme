@@ -31,7 +31,7 @@
                     <div class="navbar-brand w-100"><a href="<?php echo home_url( '/' ) ?>"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-purple.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-purple@2x.png 2x" alt="" /></a></div>
                     <div class="navbar-collapse offcanvas-nav d-lg-flex mx-lg-auto">
                         <div class="offcanvas-header d-lg-none d-xl-none">
-                            <a href="<?php echo home_url( '/' ) ?>"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-light.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-light@2x.png 2x" alt="" /></a>
+                            <a href="<?php echo esc_url( home_url( '/' ) ) ?>"><img src="<?= get_template_directory_uri() ?>/assets/img/logo-light.png" srcset="<?= get_template_directory_uri() ?>/assets/img/logo-light@2x.png 2x" alt="" /></a>
                             <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                         </div>
                         <?php

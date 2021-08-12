@@ -35189,3 +35189,13 @@ footer.bg-dark.angled.lower-start:after, footer.bg-dark.angled.upper-start:befor
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.searchContent {
+  height: 230px;
+  overflow: scroll;
+  padding: 10px;
+  background: white;
+  border: 1px solid rgba(8, 60, 130, 0.06);
+  box-shadow: 0rem 0rem 1.25rem rgb(30 34 40 / 4%);
+  border-radius: 0.4rem;
+}

@@ -78,20 +78,6 @@
             'description' => '',
         ));
 
-        $gallery_field = array(
-            'min' => 0,
-            'max' => 0,
-            'preview_size' => 'thumbnail',
-            'library' => 'all',
-            'min_width' => 0,
-            'min_height' => 0,
-            'min_size' => 0,
-            'max_width' => 0,
-            'max_height' => 0,
-            'max_size' => 0,
-            'mime_types' => '',
-        );
-
         // Metaboxes
         acf_add_local_field_group(array(
             'key' => 'project_details_key',
@@ -102,7 +88,7 @@
                     'label' => 'Project Gallery',
                     'name' => 'project_gallery_key',
                     'type' => 'gallery',
-                    'min' => 1,
+                    'min' => 0,
                     'max' => 99,
                     'preview_size' => 'full',
                     'library' => 'all',
